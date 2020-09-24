@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.linear_model import LinearRegression
+from scipy.stats import linregress
 
 global D1, D2, ub
 
@@ -25,16 +25,14 @@ DbValues = [209.178, 193.743, 181.697, 178.473, 170.455, 161.709, 155.952, 143.2
 BfieldValues = np.array([BField(CurrentList[i]) for i in range(len(CurrentList))])
 SigmaValues = np.array([Sigma(DaValues[i], DbValues[i]) for i in range(len(DaValues)) if len(DaValues) == len(DbValues)])
 
-XValues = BfieldValues.reshape((-1,1))
+Model = linregress(BfieldValues, SigmaValues)
+plt.plot(BfieldValues, Model[0] * BfieldValues + Model[1])
 
-Model = LinRegress().fit(XValues, SigmaValues)
-#r_sq = Model.score(x, y)
-print(Model)
-#print('coefficient of determination:', r_sq)
 
 
 plt.plot(BfieldValues, SigmaValues, '.')
+plt.legend()
 plt.xlabel(r'Magnetic field $B$')
 plt.ylabel(r'$\Delta \sigma$ [eV]')
 plt.title("Transistion spectrum with doppler effect")
-#plt.show()
+plt.show()
