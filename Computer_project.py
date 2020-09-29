@@ -5,15 +5,13 @@ import numpy as np
 import scipy
 import matplotlib.pyplot as plt
 import sys
-import sympy
+from sympy import *
 import math
 #The following two path extensions are located in the same directory as the main-file.
 sys.path.append('radial.py')
 sys.path.append('radiallog.py')
 import radial
 import radiallog
-#print(sys.path)
-
 
 
 """
@@ -33,7 +31,7 @@ plt.plot(r, P2p, 'r', label = 'P2p state')
 plt.plot(r, P3s, 'b', label = 'P3s state')
 plt.plot(r, P3p, 'r', label = 'P3p state')
 plt.plot(r, P3d, 'g', label = 'P3d State')
-plt.title('Probability distribution for given state')
+plt.title('Distribution for given state')
 plt.ylabel(r'$P(r)$')
 plt.xlabel(r'$r$')
 plt.legend()
@@ -48,7 +46,7 @@ for Z in z:
     P1s =  2 * r * np.exp(-r * Z) * Z ** (3/2)
     plt.plot(r, P1s, label = f'P1s state for {Z}')
 plt.legend()
-plt.title(r'Distrubution for a given $Z$ value')
+plt.title(r'Distrubution for Z = (1,2,3,4).')
 plt.ylabel(r'$P(r)$')
 plt.xlabel(r'$r$')
 plt.show()
@@ -56,3 +54,32 @@ plt.show()
 """
 Task 3
 """
+r = np.linspace(0, 35, 35 * 120)
+Z = 1
+RadialDensity_P3s = abs(2/(3 * math.sqrt(3)) * Z ** (3/2) * r * np.exp(-r * Z / 3) * (1 - 2/3 * Z * r + 2/27 * Z ** 2 * r ** 2)) ** 2
+RadialDensity_P3p = abs(8/(27 * math.sqrt(6)) * Z ** (5/3) * r ** 2 * np.exp(-r * Z/3) * (1 - 1/6 * Z * r)) ** 2
+RadialDensity_P3d = abs(4/(81 * math.sqrt(30)) * Z ** (7/2) * r ** 3  * np.exp(-r * Z/3)) ** 2
+
+plt.plot(r, RadialDensity_P3s, 'b', label = 'P3s state')
+plt.plot(r, RadialDensity_P3p, 'r', label = 'P3p state')
+plt.plot(r, RadialDensity_P3d, 'g', label = 'P3d state')
+plt.title('Probability distribution')
+plt.xlabel(r'$r$')
+plt.ylabel(r'$D(r) = |P(r)|^2$')
+plt.legend()
+plt.show()
+
+"""
+Task 4
+"""
+#bash -> pip install sympy
+
+"""
+Task 5
+"""
+
+R, theta, phi = symbols('R theta phi')
+init_printing(use_unicode = True)
+
+Yoo_Y11 = integrate((1/(math.sqrt(4 * math.pi)) * math.sqrt(3/(8 * math.pi))*sin(theta)*exp(-I * phi)) * sin(theta), (phi, 0, 2 * math.pi), (theta, 0 , math.pi))
+print(re(Yoo_Y11))
