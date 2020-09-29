@@ -27,6 +27,7 @@ SigmaValues = np.array([Sigma(DaValues[i], DbValues[i]) for i in range(len(DaVal
 
 Model = linregress(BfieldValues, SigmaValues)
 plt.plot(BfieldValues, Model[0] * BfieldValues + Model[1])
+print(Model)
 
 
 
