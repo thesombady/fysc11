@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import linregress
+from numpy import polyfit
 
 global D1, D2, ub
 
@@ -10,13 +11,22 @@ ub = 5.8 * 10 ** (-5) #eV/T
 
 
 def Sigma(Da, Db):
-    return 1/(2 * 3.085 * 10 ** (-3)) * ( Da ** 2 - Db ** 2) /(D2 ** 2 - D1 ** 2) #* 0.00124
+    return 1/(2 * 3.085 * 10 ** (-3)) * ( Da ** 2 - Db ** 2) / (D2 ** 2 - D1 ** 2) * 4.135667696 * 10 ** (-15) * 2.998 * 10 ** 8
 
 def BField(Current):
     return Current * 0.1
 
-def LinRegress(Param):
-    pass
+def LinRegress(*args):
+    xlist = args[0]
+    ylist = args[1]
+    if not isinstance(xlist, (np.ndarray, np.generic)):
+        xlist = np.array(xlist)
+    if not isinstance(ylist, (np.ndarray, np.generic)):
+        ylist = np.array(ylist)
+    LineFunc = lambda k,x,m: k * x + m
+
+
+
 
 
 CurrentList = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5] #Ampere
@@ -29,7 +39,12 @@ Model = linregress(BfieldValues, SigmaValues)
 plt.plot(BfieldValues, Model[0] * BfieldValues + Model[1], label = 'Linear fit')
 print(Model)
 
+#Model = polyfit(BfieldValues, SigmaValues, 0)
+#print(Model)
+#plt.plot(BfieldValues, Model[0] * BfieldValues, label = 'Linear fit')
 
+m_jg_j = Model[0] / ub
+print(m_jg_j)
 
 plt.plot(BfieldValues, SigmaValues, '.', label = 'Data aquired')
 plt.legend()
