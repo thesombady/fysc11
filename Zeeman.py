@@ -4,18 +4,21 @@ from scipy.stats import linregress
 from numpy import polyfit
 import math
 
-global D1, D2, ub, limit
+global D1, D2, ub, limit, Convert
 
 limit = 10 ** (-20)
+
+Convert = 6.626 * 10 ** (-34) * 2.998 * 10 ** (8)/(1.602 * 10 ** (-19))
+
 D2 = 358.05 #pixels
-#D2 = 158.574
+
 D1 = 221.073 #pixels
-#D1 = 123.784
+
 ub = 5.8 * 10 ** (-5) #eV/T
 
 
 def Sigma(Da, Db):
-    #return 1/(2 * 3.085 * 10 ** (-3)) * ( Da ** 2 - Db ** 2) / (D2 ** 2 - D1 ** 2) * 4.135667696 * 10 ** (-15) * 2.998 * 10 ** 8
+
     return 1/(2 * 3.085 * 10 ** (-3)) * ( Da ** 2 - Db ** 2) / (D2 ** 2 - D1 ** 2) * 2.998 * 10 ** 8 * 6.626 * 10 ** (-34)/(1.602*10**(-19))
 
 def BField(Current):
@@ -29,12 +32,9 @@ DbValues = [209.178, 193.743, 181.697, 178.473, 170.455, 161.709, 155.952, 143.2
 BfieldValues = np.array([BField(CurrentList[i]) for i in range(len(CurrentList))])
 SigmaValues = np.array([Sigma(DaValues[i], DbValues[i]) for i in range(len(DaValues)) if len(DaValues) == len(DbValues)])
 
-
 Model = linregress(BfieldValues, SigmaValues)
 plt.plot(BfieldValues, Model[0] * BfieldValues + Model[1], label = 'Linear fit')
 print(Model)
-
-YError = np.array([5 * 10 ** (-6) for i in range(len(SigmaValues))])
 
 m_jg_j = Model[0] / ub
 print(m_jg_j)
@@ -56,13 +56,9 @@ def PartialD2(Da, Db):
     return partial
 
 
-Convert = 6.626 * 10 ** (-34) * 2.998 * 10 ** (8)/(1.602 * 10 ** (-19))
-
-
 ErrorValues = np.array([PartialDa(DaValues[i], DbValues[i])**2 * (DaValues[i] * 0.01)**2 + PartialDb(DaValues[i], DbValues[i])**2*(DbValues[i] * 0.01)**2 + PartialD1(DaValues[i], DbValues[i])**2 * (D1 * 0.01)**2
     + PartialD2(DaValues[i], DbValues[i])**2 * (D2 * 0.01)**2 for i in range(len(DaValues))])
 RealErrorValues = (ErrorValues) ** (1/2) * Convert
-print(min(RealErrorValues))
 
 
 plt.plot(BfieldValues, SigmaValues, '.', label = 'Data acquired')
@@ -70,6 +66,6 @@ plt.errorbar(BfieldValues, Model[0] * BfieldValues + Model[1], xerr = 0,  yerr =
 plt.errorbar(BfieldValues, SigmaValues, xerr = 0.1 * 0.005, yerr = RealErrorValues, linestyle = "None", label = "Error of measurement")
 plt.legend()
 plt.xlabel(r'Magnetic field $B$')
-plt.ylabel(r'$\Delta E$ [eV]')
+plt.ylabel(r'$\Delta \sigma$ [eV]')
 plt.title(r"Transistion spectrum with Zeeman effect, with $\lambda = 470 nm$ filter")
 plt.show()
