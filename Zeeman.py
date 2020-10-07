@@ -3,12 +3,14 @@ import numpy as np
 from scipy.stats import linregress
 from numpy import polyfit
 import math
-import sympy
 
-global D1, D2, ub
+global D1, D2, ub, limit
 
+limit = 10 ** (-20)
 D2 = 358.05 #pixels
+#D2 = 158.574
 D1 = 221.073 #pixels
+#D1 = 123.784
 ub = 5.8 * 10 ** (-5) #eV/T
 
 
@@ -31,15 +33,41 @@ SigmaValues = np.array([Sigma(DaValues[i], DbValues[i]) for i in range(len(DaVal
 Model = linregress(BfieldValues, SigmaValues)
 plt.plot(BfieldValues, Model[0] * BfieldValues + Model[1], label = 'Linear fit')
 print(Model)
-ErrorValues = np.array([])
+
 YError = np.array([5 * 10 ** (-6) for i in range(len(SigmaValues))])
 
 m_jg_j = Model[0] / ub
 print(m_jg_j)
 
-plt.plot(BfieldValues, SigmaValues, '.', label = 'Data aquired')
+def PartialDa(Da, Db): #Da, Db are values
+    partial = (Sigma(Da + limit, Db) - Sigma(Da, Db)) / limit
+    return partial
+
+def PartialDb(Da, Db): #Da, Db are values
+    partial = (Sigma(Da, Db + limit) - Sigma(Da, Db))/ limit
+    return partial
+
+def PartialD1(Da, Db):
+    partial = -D1/(3.085 * 10 ** (-3)) * (Da ** 2 - Db ** 2)/(D2 ** 2 - D1 ** 2)**2
+    return partial
+
+def PartialD2(Da, Db):
+    partial = D2/(3.085 * 10 ** (-3)) * (Da ** 2 - Db ** 2)/(D2 ** 2 - D1 ** 2)**2
+    return partial
+
+
+Convert = 6.626 * 10 ** (-34) * 2.998 * 10 ** (8)/(1.602 * 10 ** (-19))
+
+
+ErrorValues = np.array([PartialDa(DaValues[i], DbValues[i])**2 * (DaValues[i] * 0.01)**2 + PartialDb(DaValues[i], DbValues[i])**2*(DbValues[i] * 0.01)**2 + PartialD1(DaValues[i], DbValues[i])**2 * (D1 * 0.01)**2
+    + PartialD2(DaValues[i], DbValues[i])**2 * (D2 * 0.01)**2 for i in range(len(DaValues))])
+RealErrorValues = (ErrorValues) ** (1/2) * Convert
+print(min(RealErrorValues))
+
+
+plt.plot(BfieldValues, SigmaValues, '.', label = 'Data acquired')
 plt.errorbar(BfieldValues, Model[0] * BfieldValues + Model[1], xerr = 0,  yerr = Model[4], linestyle = "None", label = "Error of Linear fit")
-plt.errorbar(BfieldValues, SigmaValues, xerr = 0.1 * 0.005, yerr = YError, linestyle = "None", label = "Error of measurement")
+plt.errorbar(BfieldValues, SigmaValues, xerr = 0.1 * 0.005, yerr = RealErrorValues, linestyle = "None", label = "Error of measurement")
 plt.legend()
 plt.xlabel(r'Magnetic field $B$')
 plt.ylabel(r'$\Delta E$ [eV]')
