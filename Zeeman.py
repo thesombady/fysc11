@@ -16,15 +16,12 @@ D1 = 221.073 #pixels
 
 ub = 5.8 * 10 ** (-5) #eV/T
 
-
 def Sigma(Da, Db):
 
     return 1/(2 * 3.085 * 10 ** (-3)) * ( Da ** 2 - Db ** 2) / (D2 ** 2 - D1 ** 2) * 2.998 * 10 ** 8 * 6.626 * 10 ** (-34)/(1.602*10**(-19))
 
 def BField(Current):
     return Current * 0.1
-
-
 
 CurrentList = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5] #Ampere
 DaValues = [231.572, 244.285, 242.868, 253.953, 254.487, 265.238, 278.957, 280.347, 281.347, 283.003, 287.615, 314.590, 314.590, 314.590, 318.309, 322.040, 323.306, 331.110, 331.539, 342.539]
@@ -55,11 +52,9 @@ def PartialD2(Da, Db):
     partial = D2/(3.085 * 10 ** (-3)) * (Da ** 2 - Db ** 2)/(D2 ** 2 - D1 ** 2)**2
     return partial
 
-
 ErrorValues = np.array([PartialDa(DaValues[i], DbValues[i])**2 * (DaValues[i] * 0.01)**2 + PartialDb(DaValues[i], DbValues[i])**2*(DbValues[i] * 0.01)**2 + PartialD1(DaValues[i], DbValues[i])**2 * (D1 * 0.01)**2
     + PartialD2(DaValues[i], DbValues[i])**2 * (D2 * 0.01)**2 for i in range(len(DaValues))])
 RealErrorValues = (ErrorValues) ** (1/2) * Convert
-
 
 plt.plot(BfieldValues, SigmaValues, '.', label = 'Data acquired')
 plt.errorbar(BfieldValues, Model[0] * BfieldValues + Model[1], xerr = 0,  yerr = Model[4], linestyle = "None", label = "Error of Linear fit")
