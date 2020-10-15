@@ -90,11 +90,13 @@ SphericalHarmonics = {
     'Y21' : math.sqrt(15/(8 * math.pi)) * sin(theta) * cos(theta) * exp(-I * phi),
     'Y20' : math.sqrt(5/(16 * math.pi)) * (2*cos(theta) ** 2 - sin(theta) ** 2)
 }
-"""
+
 Yoo_Y11 = integrate((1/(math.sqrt(4 * math.pi)) * math.sqrt(3/(8 * math.pi))*sin(theta)*exp(-I * phi)) * sin(theta), (phi, 0, 2 * math.pi), (theta, 0 , math.pi))
 print(re(Yoo_Y11))
 Yoo_Yoo = integrate(1/math.sqrt(4 * math.pi) * 1/math.sqrt(4 * math.pi) * sin(theta), (phi, 0, 2 * math.pi), (theta, 0 , math.pi))
 print(Yoo_Yoo)
+
 """
 for keys in SphericalHarmonics:
     print(SphericalHarmonics[keys])
+"""
