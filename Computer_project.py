@@ -12,7 +12,7 @@ sys.path.append('radial.py')
 sys.path.append('radiallog.py')
 import radial
 import radiallog
-
+import functools
 
 """
 Task One
@@ -83,20 +83,75 @@ Task 5
 R, theta, phi = symbols('R theta phi')
 init_printing(use_unicode = True)
 SphericalHarmonics = {
-    'Y00' : 1/math.sqrt(4 * math.pi),
-    'Y11' : math.sqrt(3/(8 * math.pi)) * sin(theta) * exp(-I * phi),
-    'Y10' : math.sqrt(3/(4 * math.pi)) * cos(theta),
-    'Y22' : math.sqrt(15/(32 * math.pi)) * sin(theta) ** 2 * exp(-2 * I * phi),
-    'Y21' : math.sqrt(15/(8 * math.pi)) * sin(theta) * cos(theta) * exp(-I * phi),
-    'Y20' : math.sqrt(5/(16 * math.pi)) * (2*cos(theta) ** 2 - sin(theta) ** 2)
+    'Y00' : 1/sqrt(4 * math.pi),
+    'Y1+1' : -sqrt(3/(8 * math.pi)) * sin(theta) * exp(+I * phi),
+    'Y10' : sqrt(3/(4 * math.pi)) * cos(theta),
+    'Y2+2' : sqrt(15/(32 * math.pi)) * sin(theta) ** 2 * exp(2 * I * phi),
+    'Y2+1' : -sqrt(15/(8 * math.pi)) * sin(theta) * cos(theta) * exp(+I * phi),
+    'Y20' : sqrt(5/(16 * math.pi)) * (2*cos(theta) ** 2 - sin(theta) ** 2)
 }
-
-Yoo_Y11 = integrate((1/(math.sqrt(4 * math.pi)) * math.sqrt(3/(8 * math.pi))*sin(theta)*exp(-I * phi)) * sin(theta), (phi, 0, 2 * math.pi), (theta, 0 , math.pi))
-print(re(Yoo_Y11))
-Yoo_Yoo = integrate(1/math.sqrt(4 * math.pi) * 1/math.sqrt(4 * math.pi) * sin(theta), (phi, 0, 2 * math.pi), (theta, 0 , math.pi))
-print(Yoo_Yoo)
+"""
+for key1 in SphericalHarmonics.keys():
+    for key2 in SphericalHarmonics.keys():
+        try:
+            inte1 = integrate(conjugate(SphericalHarmonics[key1]) * SphericalHarmonics[key2] * sin(theta), (phi, 0, 2 * math.pi), (theta, 0 , math.pi))
+            print(inte1, key1, key2)
+        except:
+            print(f'Cannot compute {key1}, with {key2}')
+            #Could implement quad from scipy to compute because of polynomial division error for some
+"""
 
 """
-for keys in SphericalHarmonics:
-    print(SphericalHarmonics[keys])
+Task 6
 """
+
+#This has to be completed
+
+"""
+Task 7
+"""
+#Studied section 10, and also the python script.
+
+"""
+Task 8
+"""
+Z = 1
+
+Potential = lambda r,l: -Z/r + l * (l + 1)/(2*r ** 2)
+
+r = np.linspace(0.00001, 5, 10 * 50)
+
+slist = list(map(functools.partial(Potential, l = 0), r))
+plist = list(map(functools.partial(Potential, l = 1), r))
+dlist = list(map(functools.partial(Potential, l = 2), r))
+flist = list(map(functools.partial(Potential, l = 3), r))
+plt.plot(r, slist, 'r', label = 'S orbital')
+plt.plot(r, plist, 'b', label = 'P orbital')
+plt.plot(r, dlist, 'g', label = 'D orbital')
+plt.plot(r, flist, 'y', label = 'F orbital')
+plt.title(r'$V(r)$ versus $r$')
+plt.ylabel(r'$V(r)$')
+plt.xlabel(r'$r$')
+plt.ylim(-10,10)
+plt.legend()
+plt.show()
+
+"""
+Task 9
+"""
+Z = 1
+Value1 = radial.radial(0, 1, Z, plot = False, showplot = False)
+Value2 = radial.radial(0, 2, Z, plot = False, showplot = False)
+Value3 = radial.radial(0, 3, Z, plot = False, showplot = False)
+Value4 = radial.radial(0, 4, Z, plot = False, showplot = False)
+Value5 = radial.radial(0, 6, Z, plot = False, showplot = False)
+Value6 = radial.radial(0, 9, Z, plot = False, showplot = False)
+
+plt.plot(Value1[0], Value1[1], label = '1s')
+plt.plot(Value2[0], Value2[1], label = '2s')
+plt.plot(Value3[0], Value3[1], label = '3s')
+plt.plot(Value4[0], Value4[1], label = '4s')
+plt.plot(Value5[0], Value5[1], label = '6s')
+plt.plot(Value6[0], Value6[1], label = '9s')
+plt.legend()
+plt.show()
