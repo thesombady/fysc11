@@ -298,11 +298,11 @@ for key in RadialFunctions:
 Task 17
 """
 #Modified the radiallog.
-Energy1s = radiallog.radiallog(0, 1, 11, 11, plot = False, updated = True, a = 0.01)
-Energy2s = radiallog.radiallog(0, 2, 11, 11, plot = False, updated = True)
-Energy2p = radiallog.radiallog(1, 2, 11, 11, plot = False, updated = True)
-Energy3s = radiallog.radiallog(0, 3, 11, 11, plot = False, updated = True)
-Energy2p_6_3s = 2 * Energy1s[-1] + 2 * Energy2s[-1] + 6 * Energy2p[-1] + 1 * Energy3s[-1]
-print(Energy2p_6_3s)
+Energy1s = radiallog.radiallog(0, 1, 11, 11, plot = False, updated = True ,a = 0.1)
+Energy2s = radiallog.radiallog(0, 2, 11, 11, plot = False, updated = True, a = 0.1)
+#Energy2p = radiallog.radiallog(1, 2, 11, 11, plot = False, updated = True)
+#Energy3s = radiallog.radiallog(0, 3, 11, 11, plot = False, updated = True)
+#Energy2p_6_3s = 2 * Energy1s[-1] + 2 * Energy2s[-1] + 6 * Energy2p[-1] + 1 * Energy3s[-1]
+#print(Energy2p_6_3s)
 print(Energy1s[-1])
 print(Energy2s[-1])
