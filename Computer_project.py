@@ -106,6 +106,7 @@ Task 6
 """
 
 #This has to be completed
+#Derivation
 
 """
 Task 7
@@ -139,14 +140,27 @@ plt.show()
 """
 Task 9
 """
+#Save all images
 Z = 1
-Value1 = radial.radial(0, 1, Z, plot = False, showplot = False)
-Value2 = radial.radial(0, 2, Z, plot = False, showplot = False)
-Value3 = radial.radial(0, 3, Z, plot = False, showplot = False)
-Value4 = radial.radial(0, 4, Z, plot = False, showplot = False)
-Value5 = radial.radial(0, 6, Z, plot = False, showplot = False)
-Value6 = radial.radial(0, 9, Z, plot = False, showplot = False)
 
+EnergyFormula = lambda Z,n: -Z ** 2 / (2 * n ** 2)
+"""
+Value1 = radial.radial(0, 1, Z, plot = True, showplot = True)
+print(EnergyFormula(Z, 1)) #Correct energy, E approx -0.5
+Value2 = radial.radial(0, 2, Z, plot = True, showplot = True)
+print(EnergyFormula(Z, 2))#Correct energy, E approx -0.125
+Value3 = radial.radial(0, 3, Z, plot = True, showplot = True)
+print(EnergyFormula(Z, 3))#Correct energy, E approx -0.055
+Value4 = radial.radial(0, 4, Z, plot = True, showplot = True)
+print(EnergyFormula(Z, 4))#Correct energy, E approx -0.0312
+Value5 = radial.radial(0, 6, Z, plot = True, showplot = True)
+print(EnergyFormula(Z, 6))#Correct energy, E approx - 0.0138
+Value6 = radial.radial(0, 9, Z, plot = True, showplot = True)
+print(EnergyFormula(Z, 9))# Correct energy, E  approx -0.00617
+"""
+
+"""
+All toghether
 plt.plot(Value1[0], Value1[1], label = '1s')
 plt.plot(Value2[0], Value2[1], label = '2s')
 plt.plot(Value3[0], Value3[1], label = '3s')
@@ -154,4 +168,122 @@ plt.plot(Value4[0], Value4[1], label = '4s')
 plt.plot(Value5[0], Value5[1], label = '6s')
 plt.plot(Value6[0], Value6[1], label = '9s')
 plt.legend()
+plt.title('Radial funtions.')
+plt.xlabel(r'$r$')
+plt.ylabel(r'Energy $E$')
 plt.show()
+"""
+
+#Small difference in accuracy
+"""
+Task 10
+"""
+#Derivation
+
+"""
+Task 11
+"""
+#The program was studied in detail
+
+"""
+Task 12
+"""
+
+
+"""
+EnergyFormula = lambda Z,n: -Z ** 2 / (2 * n ** 2)
+Value1 = radiallog.radiallog(0, 1, Z, plot = True) #Gridpoints = 657
+Value2 = radiallog.radiallog(0, 2, Z, plot = True) #Gridpoints = 690
+Value3 = radiallog.radiallog(0, 3, Z, plot = True) #Gridpoints = 710
+Value4 = radiallog.radiallog(0, 4, Z, plot = True) #Gridpoints = 724
+Value5 = radiallog.radiallog(0, 6, Z, plot = True) #Gridpoints = 743
+Value6 = radiallog.radiallog(0, 9, Z, plot = True) #Gridpoints = 763
+"""
+
+"""
+Task 13
+"""
+Z = 1
+nValues = [1,2,3,4,6,9]
+"""
+for n in nValues:
+    r, p = radiallog.radiallog(0, n, Z, plot = False)
+    radiallog.ra
+    plt.plot(r, np.sqrt(r) * p, label = f'{n}s orbital')
+
+
+plt.title("Radiallog for different states")
+plt.xlim(0, 100)
+plt.xlabel(r'$R$')
+plt.ylabel('Radial orbit')
+plt.legend()
+plt.show()
+"""
+
+
+"""
+Task 14
+"""
+nValues = [2,3,4,5,7,9]
+p = 1
+Z = 1
+ListValue = []
+"""
+for n in nValues:
+    Value = radiallog.radiallog(p, n, Z, plot = True)
+    ListValue.append(Value)
+    print(EnergyFormula(Z,n))
+"""
+#Gridpoints = 690, Energy = -0.12500000036952086, E = - 0.125
+#Gridpoints = 710, Energy = -0.55555556565547115, E = - 0.05555555555555555
+#Gridpoints = 724, Energy = -0.31250001979224021, E = - 0.03125
+#Gridpoints = 734, Energy = -0.20000003269382283, E = - 0.02
+#Gridpoints = 750, Energy = -0.10204088402754037, E = - 0.01020408163265306
+#Gridpoints = 763, Energy = -0.061728509786443397, E = -0.006172839506172839
+#Radiallog seems to be more accurate
+
+
+"""
+Task 15
+"""
+"""
+The effective potential given by the function Potential, depends on on n,z,l. We take the derivitve with respect ot l and see why.
+d(V_{eff})/dl = (2l + 1)/2r^2
+"""
+
+"""
+Task 16
+"""
+Z = 1
+RadialFunctions = {
+    'P1s' : 2 * Z ** (3/2) * R * exp(-Z * R),
+    'P2s' : 1/sqrt(2) * Z ** (3/2) * R * exp(- Z * R / 2) * (1 - 1/2 * Z * R),
+    'P3p' : 1/(2*sqrt(6)) * Z ** (5/2) * R ** 2 * exp(- Z * R / 2),
+    'P3s' : 2/(2*sqrt(3)) * Z ** (3/2) * R * exp(- Z * R / 3) * (1 - 2/3 * Z * R +2/27 * Z ** 2 * R ** 2),
+    'P3p' : 8/(27 * sqrt(6)) * Z ** (5/2) * R ** 2 * exp(- Z * R/3)*(1 - 1/6 * Z * R),
+    'P3d' : 4/(81 * sqrt(30)) * Z ** (7/2) * R ** 3 * exp(- Z * R/3)
+}
+
+for key in RadialFunctions:
+    try:
+        value = integrate(R * conjugate(RadialFunctions[key]) * RadialFunctions[key], (R, 0, oo ))
+        print(value, key, '\n')
+    except:
+        try:
+            value = integrate(R * (RadialFunctions[key]) ** 2, (R,0,oo))
+            print(value, key, '\n')
+        except:
+            print(f"Can't compute {key}")
+"""
+1.50000000000000 P1s
+
+6.00000000000000 P2s
+
+12.5000000000000 P3p
+
+30.3750000000001 P3s
+
+10.5000000000000 P3d
+"""
+#Compare to according plot above.
+#Compute integrals by hand.
