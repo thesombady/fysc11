@@ -269,7 +269,7 @@ RadialFunctions = {
     'P3p' : 8/(27 * sqrt(6)) * Z ** (5/2) * R ** 2 * exp(- Z * R/3)*(1 - 1/6 * Z * R),
     'P3d' : 4/(81 * sqrt(30)) * Z ** (7/2) * R ** 3 * exp(- Z * R/3)
 }
-
+"""
 for key in RadialFunctions:
     try:
         value = integrate(R * conjugate(RadialFunctions[key]) * RadialFunctions[key], (R, 0, oo ))
@@ -280,16 +280,19 @@ for key in RadialFunctions:
             print(value, key, '\n')
         except:
             print(f"Can't compute {key}")
+
+
+"""
 """
 1.50000000000000 P1s #Correct
 
 6.00000000000000 P2s #Correct
 
-12.5000000000000 P3p
+12.5000000000000 P3p #Correct, not tested
 
-30.3750000000001 P3s
+30.3750000000001 P3s #Correct, not tested
 
-10.5000000000000 P3d
+10.5000000000000 P3d #Correct, not tested
 """
 #Compare to according plot above.
 #Compute integrals by hand.
@@ -304,12 +307,10 @@ Energy2p = radiallog.radiallog(1, 2, 11, 11, plot = False, updated = True)
 Energy3s = radiallog.radiallog(0, 3, 11, 11, plot = False, updated = True)
 Energy3p = radiallog.radiallog(1, 3, 11, 11, plot = False, updated = True)
 Energy3d = radiallog.radiallog(2, 3, 11, 11, plot = False, updated = True)
-radiallog.radiallog(l, n, Z, N)
+#radiallog.radiallog(l, n, Z, N)
 Energy2p6_3s = 2 * Energy1s[-1] + 2 * Energy2s[-1] + 6 * Energy2p[-1] + 1 * Energy3s[-1]
 #print(Energy2p6_3s)#Groundstate
 Energy2p6_3p = 2 * Energy1s[-1] + 2 * Energy2s[-1] + 6 * Energy2p[-1] + 1 * Energy3p[-1]
 print(Energy1s[-1])
 print(Energy2s[-1])
-print(Energy3s[-1])
-print(Energy3p[-1])
-print(Energy3d[-1])
+print(Energy2p[-1])
