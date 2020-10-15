@@ -45,7 +45,7 @@ def radiallog(l,n,Z,N, a = 0.2683, plot=True, updated = False):
             if updated == False:                                     #gets a  0  value at r = 0
                 U[1:] = -Z/r[1:] + l*(l+1)/(2*r[1:]**2) #Original line of code, changed in according to task 17
             else:
-                U[1:] = -Z/r[1:] + (Z - zeta) * (r[1:])/(a ** 2 + r[1:]**2) + l*(l+1)/(2 * r[1:] ** 2)
+                U[1:] = -Z/r[1:] + (Z - zeta) * (r[1:])/(a ** 2 + r[1:]**2) + l*(l+1)/(2*r[1:]**2)
 
             #Determine the outer classical turning point. Start from the practical infinity
             # and step inwards until U(i) < E
