@@ -45,7 +45,7 @@ def radiallog(l,n,Z,N, a = 0.2683, plot=True, updated = False):
             if updated == False:                                     #gets a  0  value at r = 0
                 U[1:] = -Z/r[1:] + l*(l+1)/(2*r[1:]**2) #Original line of code, changed in according to task 17
             else:
-                U[1:] = -Z/r[1:] + (Z - zeta) * r[1:]/(a ** 2 + r[1:]**2)
+                U[1:] = -Z/r[1:] + (Z - zeta) * r[1:]/(a ** 2 + r[1:]**2)*l * (l+1)
 
             #Determine the outer classical turning point. Start from the practical infinity
             # and step inwards until U(i) < E
@@ -63,7 +63,7 @@ def radiallog(l,n,Z,N, a = 0.2683, plot=True, updated = False):
         if updated == False:
             g = -2*r**2*(E + Z/r) + (l+1/2)**2;               #g function for Numerow
         else:
-            g = -2*r**2*(E + Z/r) + (2*r**2*(Z-zeta)-1/4)/(a**2 + r**2)
+            g = -2*r**2*(E + Z/r) + (2*r**2 * (Z-zeta) * r) / (a**2 + r**2) + 1/4
             #g = -2 * r ** 2 * (E - U[:1])
         alpha = 1-(h**2/12)*g                             #alpha and
         beta = 2+(5*h**2/6)*g                             #beta for Numerov's method
