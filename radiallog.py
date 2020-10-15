@@ -63,7 +63,7 @@ def radiallog(l,n,Z,N, a = 0.2683, plot=True, updated = False):
         if updated == False:
             g = -2*r**2*(E + Z/r) + (l+1/2)**2;               #g function for Numerow
         else:
-            g = -2*r**2*(E + (Z - zeta)/r) + (l+1/2)**2
+            g = -2*r**2*(E + Z/r) + (2*r**2*(Z-zeta))/(a**2 + r**2) -1/4
             #g = -2 * r ** 2 * (E - U[:1])
         alpha = 1-(h**2/12)*g                             #alpha and
         beta = 2+(5*h**2/6)*g                             #beta for Numerov's method
