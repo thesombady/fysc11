@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import sys
 import datetime
 
-def radiallog(l,n,Z,plot=True):
+def radiallog(l,n,Z,N, a = 0.2683, plot=True, updated = False):
 
     starttime=datetime.datetime.now().timestamp()
 
@@ -29,6 +29,7 @@ def radiallog(l,n,Z,plot=True):
     E_upper = -2.0e-52                                    #initial values of upper bound of energy during iter
     E_lower = -math.inf                                   #initial values of lower bound of energy during iter
     num_iter = 0
+    zeta = Z - N + 1
 
     while nodes != nodes_count or abs(dE) > 1.0e-10:
         #Make sure that the energy is such that the turning point is in the interior of the grid
@@ -40,8 +41,11 @@ def radiallog(l,n,Z,plot=True):
             r = np.exp(rho)/Z;
             # Define the effective potential
             U = np.linspace(0, 0, grid_points)            #initialize U
-            U[0] = 0                                      #gets a  0  value at r = 0
-            U[1:] = -Z/r[1:] + l*(l+1)/(2*r[1:]**2)
+            U[0] = 0
+            if updated == False:                                     #gets a  0  value at r = 0
+                U[1:] = -Z/r[1:] + l*(l+1)/(2*r[1:]**2) #Original line of code, changed in according to task 17
+            else:
+                U[1:] = -Z/r[1:] + (Z - zeta) * r[1:]/(a ** 2 + r[1:]**2)
 
             #Determine the outer classical turning point. Start from the practical infinity
             # and step inwards until U(i) < E
@@ -56,7 +60,11 @@ def radiallog(l,n,Z,plot=True):
             else:
                 break
 
-        g = -2*r**2*(E + Z/r) + (l+1/2)**2;               #g function for Numerow
+        if updated == False:
+            g = -2*r**2*(E + Z/r) + (l+1/2)**2;               #g function for Numerow
+        else:
+            #g = -2*r**2*(E + (Z - zeta)/r) + (l+1/2)**2
+            g = -2 * (E - U)
         alpha = 1-(h**2/12)*g                             #alpha and
         beta = 2+(5*h**2/6)*g                             #beta for Numerov's method
 
@@ -148,7 +156,7 @@ def radiallog(l,n,Z,plot=True):
         plt.tight_layout(pad=1.0)
         plt.show()
 
-    return (r,P,)
+    return (r,P,E)
 
 if __name__ == '__main__':
     #input

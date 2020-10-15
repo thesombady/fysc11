@@ -17,6 +17,7 @@ import functools
 """
 Task One
 """
+"""
 Z = 1
 r = np.linspace(0, 35, 35 * 120)
 P1s = 2 * r * np.exp(-r * Z) * Z ** (3/2)
@@ -36,9 +37,11 @@ plt.ylabel(r'$P(r)$')
 plt.xlabel(r'$r$')
 plt.legend()
 plt.show()
+"""
 
 """
 Task 2
+"""
 """
 z = (1,2,3,4)
 r = np.linspace(0, 10, 10 * 120)
@@ -50,9 +53,10 @@ plt.title(r'Distrubution for Z = (1,2,3,4).')
 plt.ylabel(r'$P(r)$')
 plt.xlabel(r'$r$')
 plt.show()
-
+"""
 """
 Task 3
+"""
 """
 r = np.linspace(0, 35, 35 * 120)
 Z = 1
@@ -68,7 +72,7 @@ plt.xlabel(r'$r$')
 plt.ylabel(r'$D(r) = |P(r)|^2$')
 plt.legend()
 plt.show()
-
+"""
 
 """
 Task 4
@@ -116,6 +120,7 @@ Task 7
 """
 Task 8
 """
+"""
 Z = 1
 
 Potential = lambda r,l: -Z/r + l * (l + 1)/(2*r ** 2)
@@ -136,6 +141,7 @@ plt.xlabel(r'$r$')
 plt.ylim(-10,10)
 plt.legend()
 plt.show()
+"""
 
 """
 Task 9
@@ -159,7 +165,7 @@ Value6 = radial.radial(0, 9, Z, plot = True, showplot = True)
 print(EnergyFormula(Z, 9))# Correct energy, E  approx -0.00617
 """
 
-"""
+"""#dont care about this section!
 All toghether
 plt.plot(Value1[0], Value1[1], label = '1s')
 plt.plot(Value2[0], Value2[1], label = '2s')
@@ -183,7 +189,7 @@ Task 10
 """
 Task 11
 """
-#The program was studied in detail
+#The program was studied in detail, radiallog
 
 """
 Task 12
@@ -275,9 +281,9 @@ for key in RadialFunctions:
         except:
             print(f"Can't compute {key}")
 """
-1.50000000000000 P1s
+1.50000000000000 P1s #Correct
 
-6.00000000000000 P2s
+6.00000000000000 P2s #Correct
 
 12.5000000000000 P3p
 
@@ -287,3 +293,16 @@ for key in RadialFunctions:
 """
 #Compare to according plot above.
 #Compute integrals by hand.
+
+"""
+Task 17
+"""
+#Modified the radiallog.
+Energy1s = radiallog.radiallog(0, 1, 11, 11, plot = False, updated = True, a = 0.01)
+Energy2s = radiallog.radiallog(0, 2, 11, 11, plot = False, updated = True)
+Energy2p = radiallog.radiallog(1, 2, 11, 11, plot = False, updated = True)
+Energy3s = radiallog.radiallog(0, 3, 11, 11, plot = False, updated = True)
+Energy2p_6_3s = 2 * Energy1s[-1] + 2 * Energy2s[-1] + 6 * Energy2p[-1] + 1 * Energy3s[-1]
+print(Energy2p_6_3s)
+print(Energy1s[-1])
+print(Energy2s[-1])
