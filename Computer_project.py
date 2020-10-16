@@ -304,7 +304,7 @@ Task 17
 Energy1s = radiallog.radiallog(0, 1, 11, 11, plot = False, updated = True)
 Energy2s = radiallog.radiallog(0, 2, 11, 11, plot = False, updated = True)
 
-#Energy2p = radiallog.radiallog(1, 2, 11, 11, plot = False, updated = True)
+Energy2p = radiallog.radiallog(1, 2, 11, 11, plot = False, updated = True)
 """
 Energy3s = radiallog.radiallog(0, 3, 11, 11, plot = False, updated = True)
 Energy3p = radiallog.radiallog(1, 3, 11, 11, plot = False, updated = True)

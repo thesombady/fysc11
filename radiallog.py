@@ -32,6 +32,9 @@ def radiallog(l,n,Z,N, a = 0.2683, plot=True, updated = False):
     zeta = Z - N + 1
 
     while nodes != nodes_count or abs(dE) > 1.0e-10:
+        if num_iter > 250:
+            print('Cannot compute.')
+            return None
         #Make sure that the energy is such that the turning point is in the interior of the grid
         while 1:
             r_inf = 40/math.sqrt(2*abs(E))                              #practical infinity
@@ -46,6 +49,7 @@ def radiallog(l,n,Z,N, a = 0.2683, plot=True, updated = False):
                 U[1:] = -Z/r[1:] + l*(l+1)/(2*r[1:]**2) #Original line of code, changed in according to task 17
             else:
                 U[1:] = -Z/r[1:] + (Z - zeta) * (r[1:])/(a ** 2 + r[1:]**2) + l*(l+1)/(2*r[1:]**2)
+                # Added the Zeta part as to adjuctment for the new potential
 
             #Determine the outer classical turning point. Start from the practical infinity
             # and step inwards until U(i) < E
@@ -63,8 +67,13 @@ def radiallog(l,n,Z,N, a = 0.2683, plot=True, updated = False):
         if updated == False:
             g = -2*r**2*(E + Z/r) + (l+1/2)**2;               #g function for Numerow
         else:
-            g = -2*r**2*(E + Z/r) + (2*r**2 * (Z-zeta) * r) / (a**2 + r**2) + 1/(4) # Thought of adding (1/(4 + l)) instead of 1/4
-            #g = -2 * r ** 2 * (E - U[:1])
+            #g = -2*r**2*(E + Z/r) + (2*r**2 * (Z-zeta) * r) / (a**2 + r**2) + 1/(4) # Thought of adding (1/(4 + l)) instead of 1/4
+            try:
+                g = -2*r**2*(E + (Z/r) - (Z-zeta)*r/(a ** 2 + r ** 2)) + l ** 2 * r * (1 + 2 * r ** 2)+l *r* (1 + 2 * r ** 2) + 1/4# ((l+1/2)**2)/(2 * r ** 2)
+            except Exception as D:
+                raise D
+
+
         alpha = 1-(h**2/12)*g                             #alpha and
         beta = 2+(5*h**2/6)*g                             #beta for Numerov's method
 
