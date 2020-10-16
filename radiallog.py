@@ -69,7 +69,7 @@ def radiallog(l,n,Z,N, a = 0.2683, plot=True, updated = False):
         else:
             #g = -2*r**2*(E + Z/r) + (2*r**2 * (Z-zeta) * r) / (a**2 + r**2) + 1/(4) # Thought of adding (1/(4 + l)) instead of 1/4
             try:
-                g = -2*r**2*(E + (Z/r) - (Z-zeta)*r/(a ** 2 + r ** 2)) + l ** 2 * r * (1 + 2 * r ** 2)+l *r* (1 + 2 * r ** 2) + 1/4# ((l+1/2)**2)/(2 * r ** 2)
+                g = -2*r**2*(E + (Z/r) - (Z-zeta)*r/(a ** 2 + r ** 2)) + l ** 2  + l + 1/4
             except Exception as D:
                 raise D
 

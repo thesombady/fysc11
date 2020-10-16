@@ -198,12 +198,12 @@ Task 12
 
 """
 EnergyFormula = lambda Z,n: -Z ** 2 / (2 * n ** 2)
-Value1 = radiallog.radiallog(0, 1, Z, plot = True) #Gridpoints = 657
-Value2 = radiallog.radiallog(0, 2, Z, plot = True) #Gridpoints = 690
-Value3 = radiallog.radiallog(0, 3, Z, plot = True) #Gridpoints = 710
-Value4 = radiallog.radiallog(0, 4, Z, plot = True) #Gridpoints = 724
-Value5 = radiallog.radiallog(0, 6, Z, plot = True) #Gridpoints = 743
-Value6 = radiallog.radiallog(0, 9, Z, plot = True) #Gridpoints = 763
+Value1 = radiallog.radiallog(0, 1, Z, N=1, plot = True) #Gridpoints = 657
+Value2 = radiallog.radiallog(0, 2, Z, N=1, plot = True) #Gridpoints = 690
+Value3 = radiallog.radiallog(0, 3, Z, N=1, plot = True) #Gridpoints = 710
+Value4 = radiallog.radiallog(0, 4, Z, N=1, plot = True) #Gridpoints = 724
+Value5 = radiallog.radiallog(0, 6, Z, N=1, plot = True) #Gridpoints = 743
+Value6 = radiallog.radiallog(0, 9, Z, N=1, plot = True) #Gridpoints = 763
 """
 
 """
@@ -235,7 +235,7 @@ Z = 1
 ListValue = []
 """
 for n in nValues:
-    Value = radiallog.radiallog(p, n, Z, plot = True)
+    Value = radiallog.radiallog(p, n, Z, N=1, plot = True)
     ListValue.append(Value)
     print(EnergyFormula(Z,n))
 """
@@ -300,19 +300,61 @@ for key in RadialFunctions:
 Task 17
 """
 #Modified the radiallog.
+# Numerov g function was modified to the following:
+# g = -2*r**2*(E + (Z/r) - (Z-zeta)*r/(a ** 2 + r ** 2)) + l ** 2  + l + 1/4
+"""
+Task 18
+"""
+
+
+"""
 Energy1s = radiallog.radiallog(0, 1, 11, 11, plot = False, updated = True)
 Energy2s = radiallog.radiallog(0, 2, 11, 11, plot = False, updated = True)
-
 Energy2p = radiallog.radiallog(1, 2, 11, 11, plot = False, updated = True)
-"""
 Energy3s = radiallog.radiallog(0, 3, 11, 11, plot = False, updated = True)
 Energy3p = radiallog.radiallog(1, 3, 11, 11, plot = False, updated = True)
 Energy3d = radiallog.radiallog(2, 3, 11, 11, plot = False, updated = True)
-#radiallog.radiallog(l, n, Z, N)
-Energy2p6_3s = 2 * Energy1s[-1] + 2 * Energy2s[-1] + 6 * Energy2p[-1] + 1 * Energy3s[-1]
-#print(Energy2p6_3s)#Groundstate
-Energy2p6_3p = 2 * Energy1s[-1] + 2 * Energy2s[-1] + 6 * Energy2p[-1] + 1 * Energy3p[-1]
-"""
+Energy4s = radiallog.radiallog(0, 4, 11, 11, plot = False, updated = True)
+Energy4p = radiallog.radiallog(1, 4, 11, 11, plot = False, updated = True)
+Energy4d = radiallog.radiallog(2, 4, 11, 11, plot = False, updated = True)
+Energy4f = radiallog.radiallog(3, 4, 11, 11, plot = False, updated = True)
+Energy5s = radiallog.radiallog(0, 5, 11, 11, plot = False, updated = True)
+plt.plot(Energy1s[0], Energy1s[1], 'r', label = '1s')
+plt.plot(Energy2s[0], Energy2s[1], 'b', label = '2s')
+plt.plot(Energy2p[0], Energy2p[1], 'y', label = '2p')
+plt.plot(Energy3s[0], Energy3s[1], 'g', label = '3s')
+plt.legend()
+plt.xlim(0,5)
+plt.ylim(-2,4)
+plt.title('Task 18')
+plt.ylabel(r'$P(r)$, $[au]$')
+plt.xlabel(r'$r$, $[au]$')
+plt.show()
+
 print(Energy1s[-1])
 print(Energy2s[-1])
-#print(Energy2p[-1])
+print(Energy2p[-1])
+print(Energy3s[-1])
+print(Energy3p[-1])
+print(Energy3d[-1])
+print(Energy4s[-1])
+print(Energy4p[-1])
+print(Energy4d[-1])
+print(Energy4f[-1])
+print(Energy5s[-1])
+"""
+
+"""
+Task 19
+"""
+AlEnergy1s = radiallog.radiallog(0, 1, 13, 11, plot = False, updated = True)
+AlEnergy2s = radiallog.radiallog(0, 2, 13, 11, plot = False, updated = True)
+AlEnergy2p = radiallog.radiallog(1, 2, 13, 11, plot = False, updated = True)
+AlEnergy3s = radiallog.radiallog(0, 3, 13, 11, plot = False, updated = True)
+AlEnergy3p = radiallog.radiallog(1, 3, 13, 11, plot = False, updated = True)
+AlEnergy3d = radiallog.radiallog(2, 3, 13, 11, plot = False, updated = True)
+AlEnergy4s = radiallog.radiallog(0, 4, 13, 11, plot = False, updated = True)
+AlEnergy4p = radiallog.radiallog(1, 4, 13, 11, plot = False, updated = True)
+AlEnergy4d = radiallog.radiallog(2, 4, 13, 11, plot = False, updated = True)
+AlEnergy4f = radiallog.radiallog(3, 4, 13, 11, plot = False, updated = True)
+AlEnergy5s = radiallog.radiallog(0, 5, 13, 11, plot = False, updated = True)
