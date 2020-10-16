@@ -213,8 +213,7 @@ Z = 1
 nValues = [1,2,3,4,6,9]
 """
 for n in nValues:
-    r, p = radiallog.radiallog(0, n, Z, plot = False)
-    radiallog.ra
+    r, p, e = radiallog.radiallog(0, n, Z, N = 1, plot = False)
     plt.plot(r, np.sqrt(r) * p, label = f'{n}s orbital')
 
 
