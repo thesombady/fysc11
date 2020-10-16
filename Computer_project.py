@@ -347,14 +347,17 @@ print(Energy5s[-1])
 """
 Task 19
 """
-AlEnergy1s = radiallog.radiallog(0, 1, 13, 11, plot = False, updated = True)
-AlEnergy2s = radiallog.radiallog(0, 2, 13, 11, plot = False, updated = True)
-AlEnergy2p = radiallog.radiallog(1, 2, 13, 11, plot = False, updated = True)
-AlEnergy3s = radiallog.radiallog(0, 3, 13, 11, plot = False, updated = True)
-AlEnergy3p = radiallog.radiallog(1, 3, 13, 11, plot = False, updated = True)
-AlEnergy3d = radiallog.radiallog(2, 3, 13, 11, plot = False, updated = True)
-AlEnergy4s = radiallog.radiallog(0, 4, 13, 11, plot = False, updated = True)
-AlEnergy4p = radiallog.radiallog(1, 4, 13, 11, plot = False, updated = True)
-AlEnergy4d = radiallog.radiallog(2, 4, 13, 11, plot = False, updated = True)
-AlEnergy4f = radiallog.radiallog(3, 4, 13, 11, plot = False, updated = True)
-AlEnergy5s = radiallog.radiallog(0, 5, 13, 11, plot = False, updated = True)
+a = 0.2368
+cm1converter = 219474.63
+Al1s = radiallog.radiallog(0, 1, 13, 11, plot = False, updated = True, a = a)
+Al2s = radiallog.radiallog(0, 2, 13, 11, plot = False, updated = True, a = a)
+Al2p = radiallog.radiallog(1, 2, 13, 11, plot = False, updated = True, a = a)
+Al3s = radiallog.radiallog(0, 3, 13, 11, plot = False, updated = True, a = a)
+Al3p = radiallog.radiallog(1, 3, 13, 11, plot = False, updated = True, a = a)
+Al3d = radiallog.radiallog(2, 3, 13, 11, plot = False, updated = True, a = a)
+Al4s = radiallog.radiallog(0, 4, 13, 11, plot = False, updated = True, a = a)
+Al4p = radiallog.radiallog(1, 4, 13, 11, plot = False, updated = True, a = a)
+Al4d = radiallog.radiallog(2, 4, 13, 11, plot = False, updated = True, a = a)
+Al4f = radiallog.radiallog(3, 4, 13, 11, plot = False, updated = True, a = a)
+Al5s = radiallog.radiallog(0, 5, 13, 11, plot = False, updated = True, a = a)
+IonizationLimit = 229 445.71 #cm^(-1)
