@@ -7,12 +7,13 @@ import matplotlib.pyplot as plt
 import sys
 from sympy import *
 import math
+import functools
 #The following two path extensions are located in the same directory as the main-file.
 sys.path.append('radial.py')
 sys.path.append('radiallog.py')
 import radial
 import radiallog
-import functools
+
 
 """
 Task One
@@ -349,15 +350,26 @@ Task 19
 """
 a = 0.2368
 cm1converter = 219474.63
-Al1s = radiallog.radiallog(0, 1, 13, 11, plot = False, updated = True, a = a)
-Al2s = radiallog.radiallog(0, 2, 13, 11, plot = False, updated = True, a = a)
-Al2p = radiallog.radiallog(1, 2, 13, 11, plot = False, updated = True, a = a)
-Al3s = radiallog.radiallog(0, 3, 13, 11, plot = False, updated = True, a = a)
-Al3p = radiallog.radiallog(1, 3, 13, 11, plot = False, updated = True, a = a)
-Al3d = radiallog.radiallog(2, 3, 13, 11, plot = False, updated = True, a = a)
-Al4s = radiallog.radiallog(0, 4, 13, 11, plot = False, updated = True, a = a)
-Al4p = radiallog.radiallog(1, 4, 13, 11, plot = False, updated = True, a = a)
-Al4d = radiallog.radiallog(2, 4, 13, 11, plot = False, updated = True, a = a)
-Al4f = radiallog.radiallog(3, 4, 13, 11, plot = False, updated = True, a = a)
-Al5s = radiallog.radiallog(0, 5, 13, 11, plot = False, updated = True, a = a)
-IonizationLimit = 229 445.71 #cm^(-1)
+IonizationLimit = - 229445.71 #cm^(-1
+AValue = []
+a = 0
+while a < 0.5:
+    Al1s = radiallog.radiallog(0, 1, 13, 11, plot = False, updated = True, a = a)
+    Al2s = radiallog.radiallog(0, 2, 13, 11, plot = False, updated = True, a = a)
+    Al2p = radiallog.radiallog(1, 2, 13, 11, plot = False, updated = True, a = a)
+    Al3s = radiallog.radiallog(0, 3, 13, 11, plot = False, updated = True, a = a)
+    Al3p = radiallog.radiallog(1, 3, 13, 11, plot = False, updated = True, a = a)
+    Al3d = radiallog.radiallog(2, 3, 13, 11, plot = False, updated = True, a = a)
+    Al4s = radiallog.radiallog(0, 4, 13, 11, plot = False, updated = True, a = a)
+    Al4p = radiallog.radiallog(1, 4, 13, 11, plot = False, updated = True, a = a)
+    Al4d = radiallog.radiallog(2, 4, 13, 11, plot = False, updated = True, a = a)
+    Al4f = radiallog.radiallog(3, 4, 13, 11, plot = False, updated = True, a = a)
+    Al5s = radiallog.radiallog(0, 5, 13, 11, plot = False, updated = True, a = a)
+    EnergyOfGroundstate = (2 * Al1s[-1] + 2 * Al2s[-1] + 6 * Al2p[-1] + 2 * Al3s[-1] + 1 * Al3p[-1]) * cm1converter
+    print(EnergyOfGroundstate, a)
+    if abs(EnergyOfGroundstate - IonizationLimit) < 0.01:
+        print(EnergyOfGroundstate, IonizationLimit)
+        AValue.append(a)
+        break
+    a += 0.01
+print(AValue)
