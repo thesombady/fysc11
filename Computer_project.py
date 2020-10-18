@@ -13,6 +13,7 @@ sys.path.append('radial.py')
 sys.path.append('radiallog.py')
 import radial
 import radiallog
+import time
 
 
 """
@@ -348,12 +349,12 @@ print(Energy5s[-1])
 """
 Task 19
 """
-a = 0.2368
 cm1converter = 219474.63
 IonizationLimit = - 229445.71 #cm^(-1
 AValue = []
-a = 0
-while a < 0.5:
+
+"""
+while a < 1:
     Al1s = radiallog.radiallog(0, 1, 13, 11, plot = False, updated = True, a = a)
     Al2s = radiallog.radiallog(0, 2, 13, 11, plot = False, updated = True, a = a)
     Al2p = radiallog.radiallog(1, 2, 13, 11, plot = False, updated = True, a = a)
@@ -367,9 +368,21 @@ while a < 0.5:
     Al5s = radiallog.radiallog(0, 5, 13, 11, plot = False, updated = True, a = a)
     EnergyOfGroundstate = (2 * Al1s[-1] + 2 * Al2s[-1] + 6 * Al2p[-1] + 2 * Al3s[-1] + 1 * Al3p[-1]) * cm1converter
     print(EnergyOfGroundstate, a)
-    if abs(EnergyOfGroundstate - IonizationLimit) < 0.01:
+    if abs(EnergyOfGroundstate - IonizationLimit) < 1000:
         print(EnergyOfGroundstate, IonizationLimit)
         AValue.append(a)
         break
     a += 0.01
-print(AValue)
+
+print(EnergyOfGroundstate, IonizationLimit)
+"""
+a = 10
+Al1s = radiallog.radiallog(0, 1, 13, 11, plot = False, updated = True, a = a)
+Al2s = radiallog.radiallog(0, 2, 13, 11, plot = False, updated = True, a = a)
+Al2p = radiallog.radiallog(1, 2, 13, 11, plot = False, updated = True, a = a)
+Al3s = radiallog.radiallog(0, 3, 13, 11, plot = False, updated = True, a = a)
+Al3p = radiallog.radiallog(1, 3, 13, 11, plot = False, updated = True, a = a)
+EnergyOfGroundstate = (2 * Al1s[-1] + 2 * Al2s[-1] + 6 * Al2p[-1] + 2 * Al3s[-1] + 1 * Al3p[-1]) * cm1converter
+print(EnergyOfGroundstate, IonizationLimit)
+#a = 0.5 => 58344590.71619557
+#a = 0.2368 => 38666654.8332835
