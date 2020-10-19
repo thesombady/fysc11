@@ -9,8 +9,8 @@ from sympy import *
 import math
 import functools
 #The following two path extensions are located in the same directory as the main-file.
-sys.path.append('radial.py')
-sys.path.append('radiallog.py')
+#sys.path.append('radial.py')
+#sys.path.append('radiallog.py')
 import radial
 import radiallog
 import time
@@ -126,6 +126,8 @@ Task 8
 Z = 1
 
 Potential = lambda r,l: -Z/r + l * (l + 1)/(2*r ** 2)
+def Potential(r,l):
+    return -Z/r + l * (l + 1)/(2*r ** 2)
 
 r = np.linspace(0.00001, 5, 10 * 50)
 
@@ -167,20 +169,7 @@ Value6 = radial.radial(0, 9, Z, plot = True, showplot = True)
 print(EnergyFormula(Z, 9))# Correct energy, E  approx -0.00617
 """
 
-"""#dont care about this section!
-All toghether
-plt.plot(Value1[0], Value1[1], label = '1s')
-plt.plot(Value2[0], Value2[1], label = '2s')
-plt.plot(Value3[0], Value3[1], label = '3s')
-plt.plot(Value4[0], Value4[1], label = '4s')
-plt.plot(Value5[0], Value5[1], label = '6s')
-plt.plot(Value6[0], Value6[1], label = '9s')
-plt.legend()
-plt.title('Radial funtions.')
-plt.xlabel(r'$r$')
-plt.ylabel(r'Energy $E$')
-plt.show()
-"""
+
 
 #Small difference in accuracy
 """
@@ -308,7 +297,6 @@ Task 17
 Task 18
 """
 
-
 """
 Energy1s = radiallog.radiallog(0, 1, 11, 11, plot = False, updated = True)
 Energy2s = radiallog.radiallog(0, 2, 11, 11, plot = False, updated = True)
@@ -384,5 +372,6 @@ Al3s = radiallog.radiallog(0, 3, 13, 11, plot = False, updated = True, a = a)
 Al3p = radiallog.radiallog(1, 3, 13, 11, plot = False, updated = True, a = a)
 EnergyOfGroundstate = (2 * Al1s[-1] + 2 * Al2s[-1] + 6 * Al2p[-1] + 2 * Al3s[-1] + 1 * Al3p[-1]) * cm1converter
 print(EnergyOfGroundstate, IonizationLimit)
-#a = 0.5 => 58344590.71619557
-#a = 0.2368 => 38666654.8332835
+#a = 0.5 => -58344590.71619557
+#a = 0.2368 => -38666654.8332835
+#Set to zero by minus every other value.
