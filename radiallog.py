@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import sys
 import datetime
 
-def radiallog(l,n,Z,N, a = 0.2683, plot=True, updated = False):
+def radiallog(l, n, Z, N, a = 0.2683, plot=True, updated = False):
 
     starttime=datetime.datetime.now().timestamp()
 
@@ -22,6 +22,7 @@ def radiallog(l,n,Z,N, a = 0.2683, plot=True, updated = False):
         sys.stderr.write('Invalid input\n')
         sys.exit(-1)
 
+    np.seterr(all = 'print')
     rhomin = -10
     h = 1/48                                              #step size
     nodes_count = -1                                      #initial values of nodes
@@ -30,6 +31,7 @@ def radiallog(l,n,Z,N, a = 0.2683, plot=True, updated = False):
     E_lower = -math.inf                                   #initial values of lower bound of energy during iter
     num_iter = 0
     zeta = Z - N + 1
+    a = np.float64(a)
 
     while nodes != nodes_count or abs(dE) > 1.0e-10:
         if num_iter > 250:
@@ -40,15 +42,18 @@ def radiallog(l,n,Z,N, a = 0.2683, plot=True, updated = False):
             r_inf = 40/math.sqrt(2*abs(E))                              #practical infinity
             rhoi = math.log(Z*r_inf);                                   # practical infinity in rho
             grid_points = round((-rhomin + rhoi)/h);                    # number of grid points
-            rho = rhomin + np.linspace(0,grid_points-1,grid_points)*h;  # generate grid
+            rho = rhomin + np.linspace(0,grid_points-1,grid_points, dtype=np.float64)*h;  # generate grid
             r = np.exp(rho)/Z;
             # Define the effective potential
-            U = np.linspace(0, 0, grid_points)            #initialize U
+            U = np.linspace(0, 0, grid_points, dtype=np.float64)            #initialize U
             U[0] = 0
             if updated == False:                                     #gets a  0  value at r = 0
                 U[1:] = -Z/r[1:] + l*(l+1)/(2*r[1:]**2) #Original line of code, changed in according to task 17
             else:
-                U[1:] = -Z/r[1:] + (Z - zeta) * (r[1:])/(a ** 2 + r[1:]**2) + l*(l+1)/(2*r[1:]**2)
+                try:
+                    U[1:] = -Z/r[1:] + (Z - zeta) * (r[1:])/(a ** 2 + r[1:]**2) + l*(l+1)/(2*r[1:]**2)
+                except Exception as E:
+                    raise E
                 # Added the Zeta part as to adjuctment for the new potential
 
             #Determine the outer classical turning point. Start from the practical infinity
