@@ -195,6 +195,13 @@ Value3 = radiallog.radiallog(0, 3, Z, N=1, plot = True) #Gridpoints = 710
 Value4 = radiallog.radiallog(0, 4, Z, N=1, plot = True) #Gridpoints = 724
 Value5 = radiallog.radiallog(0, 6, Z, N=1, plot = True) #Gridpoints = 743
 Value6 = radiallog.radiallog(0, 9, Z, N=1, plot = True) #Gridpoints = 763
+#Energies
+print(Value1[-1])
+print(Value2[-1])
+print(Value3[-1])
+print(Value4[-1])
+print(Value5[-1])
+print(Value6[-1])
 """
 
 """
@@ -367,7 +374,7 @@ while a < 0.25:
     a += 0.0001
     print(value)
 """
-"""
+
 a = 0.20789999999999803
 Al1s = radiallog.radiallog(0, 1, 13, 11, plot = False, updated = True, a = a)
 Al2s = radiallog.radiallog(0, 2, 13, 11, plot = False, updated = True, a = a)
@@ -406,11 +413,22 @@ plt.ylabel('P(r) [a.u]')
 plt.xlim(0, 5)
 plt.ylim(-2, 5)
 plt.show()
-"""
+print(Al1s[-1])
+print(Al2s[-1])
+print(Al2p[-1])
+print(Al3s[-1])
+print(Al3p[-1])
+print(Al3d[-1])
+print(Al4s[-1])
+print(Al4p[-1])
+print(Al4d[-1])
+print(Al4f[-1])
+print(Al5s[-1])
+
 """
 Task 20
 """
-
+"""
 a = 0.27
 values = []
 difference = []
@@ -473,3 +491,4 @@ print(Li3p[-1] * cm1converter)
 print(Li3d[-1] * cm1converter)
 print(Li4s[-1] * cm1converter)
 print(Li4p[-1] * cm1converter)
+"""
