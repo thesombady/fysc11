@@ -142,7 +142,7 @@ def radial(l,n,Z,plot=True, showplot = False):
         if showplot:
             plt.show()
 
-    return (r,P,)
+    return (r,P,nodes_count, E)
 
 if __name__ == '__main__':
     #input

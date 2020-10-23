@@ -168,8 +168,22 @@ Value5 = radial.radial(0, 6, Z, plot = True, showplot = True)
 print(EnergyFormula(Z, 6))#Correct energy, E approx - 0.0138
 Value6 = radial.radial(0, 9, Z, plot = True, showplot = True)
 print(EnergyFormula(Z, 9))# Correct energy, E  approx -0.00617
-
+#Number of nodes found in the Program
+print(Value1[-2])
+print(Value2[-2])
+print(Value3[-2])
+print(Value4[-2])
+print(Value5[-2])
+print(Value6[-2])
+#Energy
+print(Value1[-1])
+print(Value2[-1])
+print(Value3[-1])
+print(Value4[-1])
+print(Value5[-1])
+print(Value6[-1])
 """
+
 
 
 #Small difference in accuracy
@@ -374,7 +388,7 @@ while a < 0.25:
     a += 0.0001
     print(value)
 """
-
+"""
 a = 0.20789999999999803
 Al1s = radiallog.radiallog(0, 1, 13, 11, plot = False, updated = True, a = a)
 Al2s = radiallog.radiallog(0, 2, 13, 11, plot = False, updated = True, a = a)
@@ -424,7 +438,7 @@ print(Al4p[-1])
 print(Al4d[-1])
 print(Al4f[-1])
 print(Al5s[-1])
-
+"""
 """
 Task 20
 """
